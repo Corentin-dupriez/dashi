@@ -1,0 +1,15 @@
+dashboard: 
+  title: Sales Overview
+
+  charts:
+    - name: revenue_over_time
+      type: line
+      datasource: sales
+      x: date
+      y: revenue
+
+    - name: orders_by_channel 
+      type: bar
+      datasource: sales
+      x: channel 
+      y: order

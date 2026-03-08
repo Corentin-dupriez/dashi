@@ -1,0 +1,20 @@
+datasource: 
+  name: sample_data
+  type: csv
+  columns:
+    - name: date 
+      type: date
+    - name: channel
+      type: string
+    - name: device
+      type: string
+    - name: visitors
+      type: integer
+    - name: orders
+      type: integer
+    - name: revenue
+      type: integer
+    - name: avg_order_value
+      type: integer 
+    - name: conversion_rate
+      type: float
