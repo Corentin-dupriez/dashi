@@ -1,6 +1,6 @@
 from pathlib import Path
 from typing import List
-from parser import parse_yaml, NoConfigFile
+from config.yaml_parser import parse_yaml, NoConfigFile
 import polars as pl
 
 
@@ -60,7 +60,7 @@ class Datasource:
             "float": pl.datatypes.Float16,
             "date": pl.datatypes.Date,
         }
-        return datatypes_dict[datatype]
+        return datatypes_dict.get(datatype, pl.datatypes.Unknown)
 
 
 if __name__ == "__main__":
