@@ -40,7 +40,7 @@ class Datasource:
     def __str__(self) -> str:
         return f"Datasource {self.name}, from {self.data_type}, with columns\n{'\n'.join(f' - {list(value)[0]}: {list(value)[1]}' for value in [el.values() for el in self.columns])}"
 
-    def load_data(self):
+    def load_data(self) -> polars.DataFrame:
         schema = {
             list(value)[0]: self.convert_type_to_polars_datatype(list(value)[1])
             for value in [el.values() for el in self.columns]
@@ -50,7 +50,7 @@ class Datasource:
         return data
 
     @staticmethod
-    def convert_type_to_polars_datatype(datatype: str):
+    def convert_type_to_polars_datatype(datatype: str) -> polars.datatypes:
         datatypes_dict = {
             "string": polars.datatypes.String,
             "integer": polars.datatypes.Int32,
