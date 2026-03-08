@@ -1,11 +1,11 @@
 from pathlib import Path
 from typing import List
-from parser import parse_yaml
-import polars
+from parser import parse_yaml, NoConfigFile
+import polars as pl
 
 
 class Datasources:
-    DATA_SOURCES_PATH = Path(Path.cwd()) / "data_sources"
+    DATA_SOURCES_PATH = Path.cwd() / "data_sources"
 
     def __init__(self) -> None:
         self.sources = self.load_sources()
@@ -13,22 +13,26 @@ class Datasources:
     def load_sources(self):
         sources = []
 
-        data = parse_yaml(self.DATA_SOURCES_PATH, "datasource")
+        try:
+            data = parse_yaml(self.DATA_SOURCES_PATH, "datasource")
 
-        ds = data["datasource"]
-
-        sources.append(
-            Datasource(
-                ds["name"],
-                ds["type"],
-                ds["columns"],
+            ds = data["datasource"]
+            sources.append(
+                Datasource(
+                    ds["name"],
+                    ds["type"],
+                    ds["columns"],
+                )
             )
-        )
+
+        except NoConfigFile as e:
+            print(e.message)
+
         return sources
 
 
 class Datasource:
-    STAGING_DATA_PATH = Path(Path.cwd()) / "staging_data"
+    STAGING_DATA_PATH = Path.cwd() / "staging_data"
 
     def __init__(self, name: str, data_type: str, columns: List[dict]) -> None:
         self.name = name
@@ -38,29 +42,29 @@ class Datasource:
         self.data = self.load_data()
 
     def __str__(self) -> str:
-        return f"Datasource {self.name}, from {self.data_type}, with columns\n{'\n'.join(f' - {list(value)[0]}: {list(value)[1]}' for value in [el.values() for el in self.columns])}"
+        return f"Datasource {self.name}, from {self.data_type}, with columns\n{'\n'.join(f' - {col["name"]}: {col["type"]}' for col in self.columns)}"
 
-    def load_data(self) -> polars.DataFrame:
+    def load_data(self) -> pl.DataFrame:
         schema = {
-            list(value)[0]: self.convert_type_to_polars_datatype(list(value)[1])
-            for value in [el.values() for el in self.columns]
+            col["name"]: self.convert_type_to_pl_datatype(col["type"])
+            for col in self.columns
         }
-        print(schema)
-        data = polars.read_csv(self.path, schema=schema)
+        data = pl.read_csv(self.path, schema=schema)
         return data
 
     @staticmethod
-    def convert_type_to_polars_datatype(datatype: str) -> polars.datatypes:
+    def convert_type_to_pl_datatype(datatype: str) -> pl.datatypes:
         datatypes_dict = {
-            "string": polars.datatypes.String,
-            "integer": polars.datatypes.Int32,
-            "float": polars.datatypes.Float16,
-            "date": polars.datatypes.Date,
+            "string": pl.datatypes.String,
+            "integer": pl.datatypes.Int32,
+            "float": pl.datatypes.Float16,
+            "date": pl.datatypes.Date,
         }
         return datatypes_dict[datatype]
 
 
-datasoures = Datasources()
+if __name__ == "__main__":
+    datasoures = Datasources()
 
-for source in datasoures.sources:
-    print(source.data)
+    for source in datasoures.sources:
+        print(source.data)
