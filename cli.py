@@ -1,10 +1,13 @@
-import argparse
+import typer
 from datasources import Datasources
 from dashboard import Dashboard
 from render import render_dashboard
 
+app = typer.Typer()
 
-def dashi_build():
+
+@app.command()
+def build():
     data_sources = Datasources()  # print(data_sources[0].data)
     dashboard = Dashboard(data_sources)
     charts = [
@@ -14,14 +17,10 @@ def dashi_build():
     render_dashboard(dashboard, charts)
 
 
-def main():
-    parser = argparse.ArgumentParser("dashi")
-    parser.add_argument("build")
-    args = parser.parse_args()
-
-    if args.build:
-        dashi_build()
+@app.command()
+def serve():
+    print("Serving")
 
 
 if __name__ == "__main__":
-    main()
+    app()

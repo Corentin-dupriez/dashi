@@ -1,5 +1,6 @@
 altair==6.0.0
 altair_tiles==0.4.0
+annotated-doc==0.0.4
 anywidget==0.9.21
 arro3-core==0.8.0
 asttokens==3.0.1
@@ -17,8 +18,10 @@ Jinja2==3.1.6
 jsonschema==4.26.0
 jsonschema-specifications==2025.9.1
 jupyterlab_widgets==3.0.16
+markdown-it-py==4.0.0
 MarkupSafe==3.0.3
 matplotlib-inline==0.2.1
+mdurl==0.1.2
 mercantile==1.2.1
 narwhals==2.17.0
 numpy==2.4.2
@@ -40,10 +43,13 @@ pytest-mock==3.15.1
 python-dateutil==2.9.0.post0
 PyYAML==6.0.3
 referencing==0.37.0
+rich==14.3.3
 rpds-py==0.30.0
+shellingham==1.5.4
 six==1.17.0
 stack-data==0.6.3
 traitlets==5.14.3
+typer==0.24.1
 typing_extensions==4.15.0
 vegafusion==2.0.3
 vl-convert-python==1.9.0.post1
