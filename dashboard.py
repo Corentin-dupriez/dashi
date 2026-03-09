@@ -2,6 +2,11 @@ from config.yaml_parser import parse_yaml, NoConfigFile
 from pathlib import Path
 import altair as alt
 from datasources import Datasources
+import polars as pl
+
+
+class NoChartType(ValueError):
+    pass
 
 
 class Dashboard:
@@ -34,6 +39,10 @@ class Dashboard:
         Returns:
             An altait chart type, with its type corresponding to the value of the "type" key in the passed chart_data dict
         """
+        charts_mapper = {
+            "line": self.generate_line_chart,
+            "bar": self.generate_bar_chart,
+        }
         chart_name = chart_data["name"]
         chart_type = chart_data["type"]
         chart_datasource = self.datasources.find_datasource(
@@ -42,11 +51,38 @@ class Dashboard:
         chart_x = chart_data["x"] + ":T"
         chart_y = chart_data["y"] + ":Q"
 
-        if chart_type == "line":
-            chart = (
-                alt.Chart(chart_datasource, title=alt.Title(chart_name))
-                .mark_line()
-                .encode(x=chart_x, y=chart_y)
-            )
+        chart_function = charts_mapper.get(chart_type)
 
-            return chart
+        if not chart_function:
+            raise NoChartType("The provided chart type is not recognized")
+
+        return charts_mapper[chart_type](chart_name, chart_datasource, chart_x, chart_y)
+
+    def generate_line_chart(
+        self,
+        chart_name: str,
+        chart_datasource: pl.DataFrame,
+        chart_x: str,
+        chart_y: str,
+    ) -> alt.Chart:
+        chart = (
+            alt.Chart(chart_datasource, title=alt.Title(chart_name))
+            .mark_line()
+            .encode(x=chart_x, y=chart_y)
+        )
+
+        return chart
+
+    def generate_bar_chart(
+        self,
+        chart_name: str,
+        chart_datasource: pl.DataFrame,
+        chart_x: str,
+        chart_y: str,
+    ) -> alt.Chart:
+        chart = (
+            alt.Chart(chart_datasource, title=alt.Title(chart_name))
+            .mark_bar()
+            .encode(x=chart_x, y=chart_y)
+        )
+        return chart
