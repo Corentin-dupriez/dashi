@@ -1,6 +1,6 @@
 from pathlib import Path
 from typing import List
-from config.yaml_parser import parse_yaml, NoConfigFile
+from .config.yaml_parser import parse_yaml, NoConfigFile
 import polars as pl
 
 

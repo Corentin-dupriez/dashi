@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dashi"
+version = "0.0.1"
+description = "Dashboard as code tool"
+dependencies = [
+  "polars",
+  "altair",
+  "pyyaml",
+  "jinja2",
+  "typer"
+]
+
+[tool.setuptools.packages.find]
+include = ["dashi*"]
+
+[project.scripts]
+dashi = "dashi.cli:app"

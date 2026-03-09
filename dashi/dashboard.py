@@ -1,7 +1,7 @@
-from config.yaml_parser import parse_yaml, NoConfigFile
+from .config.yaml_parser import parse_yaml, NoConfigFile
 from pathlib import Path
 import altair as alt
-from datasources import Datasources
+from .datasources import Datasources
 import polars as pl
 
 
