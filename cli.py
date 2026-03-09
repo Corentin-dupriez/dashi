@@ -1,14 +1,17 @@
 import argparse
 from datasources import Datasources
 from dashboard import Dashboard
+from render import render_dashboard
 
 
 def dashi_build():
     data_sources = Datasources()  # print(data_sources[0].data)
     dashboard = Dashboard(data_sources)
-    print(dashboard.charts)
-    for chart in dashboard.charts:
-        print(chart.to_json())
+    charts = [
+        {"id": f"chart_{i}", "spec": chart.to_dict()}
+        for i, chart in enumerate(dashboard.charts)
+    ]
+    render_dashboard(dashboard, charts)
 
 
 def main():

@@ -1,13 +1,13 @@
 # dashi
 
+dashi is a dashboard-as-code application that allows you to create dashboards
+from yaml files. It used Polars for fast and efficient dataframe processing,
+and Altair for visualisation.
+
 ## Status
 
 ⚠️ dashi is currently in early development.
 The API and configuration format may change.
-
-dashi is a dashboard-as-code application that allows you to create dashboards
-from yaml files. It used Polars for fast and efficient dataframe processing,
-and Altair for visualisation.
 
 ## Philosophy
 
