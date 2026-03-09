@@ -7,5 +7,5 @@ def render_dashboard(dashboard, charts):
 
     html = template.render(title=dashboard.title, charts=charts)
 
-    with open("sales.html", "w") as f:
+    with open(f"builds/{dashboard.title}.html", "w") as f:
         f.write(html)
