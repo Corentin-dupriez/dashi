@@ -4,12 +4,12 @@ dashboard:
   charts:
     - name: revenue_over_time
       type: line
-      datasource: sales
+      datasource: sample_data
       x: date
       y: revenue
 
     - name: orders_by_channel 
       type: bar
-      datasource: sales
+      datasource: sample_data
       x: channel 
       y: order
