@@ -44,8 +44,8 @@ class Datasource:
         self.path = self.STAGING_DATA_PATH / f"{self.name}.{self.data_type}"
         self.data = self.load_data()
 
-    # def __repr__(self) -> str:
-    #     return f"Datasource {self.name}, from {self.data_type}, with columns\n{'\n'.join(f' - {col["name"]}: {col["type"]}' for col in self.columns)}"
+    def __repr__(self) -> str:
+        return f"Datasource {self.name}, from {self.data_type}, with columns\n{'\n'.join(f' - {col["name"]}: {col["type"]}' for col in self.columns)}"
 
     def load_data(self) -> pl.DataFrame:
         schema = {
