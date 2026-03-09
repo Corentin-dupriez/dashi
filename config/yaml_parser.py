@@ -8,8 +8,16 @@ class NoConfigFile(Exception):
         super().__init__()
 
 
-def parse_yaml(file_path: Path, file_type: str) -> dict | None:
-    files = list(file_path.glob("*yml"))
+def parse_yaml(file_path: Path, file_type: str) -> dict:
+    """
+    Parses the yaml files in the provided file_path and returns their content as a dict
+    Args:
+        file_path: a Path object representing the folder to parse
+        file_type: the type of file parsed, which is used for the function to return the sub-dictionnary with the actual content
+    Returns:
+        a dictionnary representing the content of the yaml file
+    """
+    files = list(file_path.glob("*.y*ml"))
 
     if not files:
         raise NoConfigFile(f"No YAML config found in {file_path}")
@@ -19,4 +27,4 @@ def parse_yaml(file_path: Path, file_type: str) -> dict | None:
         config = yaml.safe_load(f)
     if config is None:
         raise ValueError(f"{file} is empty")
-    return config
+    return config[file_type]

@@ -16,7 +16,8 @@ class Datasources:
         try:
             data = parse_yaml(self.DATA_SOURCES_PATH, "datasource")
 
-            ds = data["datasource"]
+            ds = data
+
             sources.append(
                 Datasource(
                     ds["name"],

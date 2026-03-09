@@ -20,14 +20,12 @@ class Dashboard:
 
     def load_dashboard(self) -> dict[str, str]:
         """Retrieve the yaml parametrization from the dashboard folder and return the parametrization as a dict.
-        For ease of use from the following modules, the returned dict is a sub-dict, accessed with the key "dashboard"
         Returns:
             A dict mapping keys to a corresponding dashboard parameter, or chart.
             Example: {"dashboard": {"title": "sample_dashboard"}}
         """
         data = parse_yaml(self.DASHBOARD_FOLDER, "dashboard")
-        dashboard = data["dashboard"]
-        return dashboard
+        return data
 
     def generate_chart(self, chart_data: dict) -> alt.Chart | None:
         """Create the altair chart based on chart data retrieved from the yaml.
