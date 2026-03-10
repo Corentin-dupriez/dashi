@@ -12,4 +12,4 @@ dashboard:
       type: bar
       datasource: sample_data
       x: channel 
-      y: order
+      y: orders

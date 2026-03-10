@@ -8,7 +8,7 @@ version = "0.0.1"
 description = "Dashboard as code tool"
 dependencies = [
   "polars",
-  "altair",
+  "plotly",
   "pyyaml",
   "jinja2",
   "typer"

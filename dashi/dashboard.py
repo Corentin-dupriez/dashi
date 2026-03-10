@@ -3,6 +3,8 @@ from pathlib import Path
 import altair as alt
 from .datasources import Datasources
 import polars as pl
+import plotly.express as px
+import plotly.graph_objs._figure
 
 
 class NoChartType(ValueError):
@@ -27,7 +29,7 @@ class Dashboard:
         data = parse_yaml(self.DASHBOARD_FOLDER, "dashboard")
         return data
 
-    def generate_chart(self, chart_data: dict) -> alt.Chart | None:
+    def generate_chart(self, chart_data: dict) -> plotly.graph_objs.Figure | None:
         """Create the altair chart based on chart data retrieved from the yaml.
         The chart data contains chart type, data source, values for x and y. The actual data has to be fetched from the datasource, which should be kept
         as an instance of the class Datasource.
@@ -46,9 +48,8 @@ class Dashboard:
         chart_datasource = self.datasources.find_datasource(
             chart_data["datasource"]
         ).load_data()
-        chart_x = chart_data["x"] + ":T"
-        chart_y = chart_data["y"] + ":Q"
-
+        chart_x = chart_data["x"]
+        chart_y = chart_data["y"]
         chart_function = charts_mapper.get(chart_type)
 
         if not chart_function:
@@ -62,13 +63,8 @@ class Dashboard:
         chart_datasource: pl.DataFrame,
         chart_x: str,
         chart_y: str,
-    ) -> alt.Chart:
-        chart = (
-            alt.Chart(chart_datasource, title=alt.Title(chart_name))
-            .mark_line()
-            .encode(x=chart_x, y=chart_y)
-        )
-
+    ) -> plotly.graph_objs._figure.Figure:
+        chart = px.line(chart_datasource, x=chart_x, y=chart_y)
         return chart
 
     def generate_bar_chart(
@@ -77,10 +73,6 @@ class Dashboard:
         chart_datasource: pl.DataFrame,
         chart_x: str,
         chart_y: str,
-    ) -> alt.Chart:
-        chart = (
-            alt.Chart(chart_datasource, title=alt.Title(chart_name))
-            .mark_bar()
-            .encode(x=chart_x, y=chart_y)
-        )
+    ) -> plotly.graph_objs._figure.Figure:
+        chart = px.bar(chart_datasource, x=chart_x, y=chart_y)
         return chart
