@@ -14,7 +14,8 @@ def parse_yaml(file_path: Path, file_type: str) -> dict:
     Parses the yaml files in the provided file_path and returns their content as a dict
     Args:
         file_path: a Path object representing the folder to parse
-        file_type: the type of file parsed, which is used for the function to return the sub-dictionnary with the actual content
+        file_type: the type of file parsed, which is used for the function to
+            return the sub-dictionnary with the actual content
     Returns:
         a dictionnary representing the content of the yaml file
     """

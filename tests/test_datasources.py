@@ -19,7 +19,7 @@ def data_source(mocker):
     [
         ("string", pl.datatypes.String),
         ("integer", pl.datatypes.Int32),
-        ("float", pl.datatypes.Float16),
+        ("float", pl.datatypes.Float32),
         ("date", pl.datatypes.Date),
         ("spongebob", pl.datatypes.Unknown),
     ],
