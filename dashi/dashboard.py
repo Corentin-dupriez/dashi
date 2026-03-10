@@ -1,6 +1,6 @@
 from .config.yaml_parser import parse_yaml, NoConfigFile
+from .charts.registry import CHARTS
 from pathlib import Path
-import altair as alt
 from .datasources import Datasources
 import polars as pl
 import plotly.express as px
@@ -30,19 +30,15 @@ class Dashboard:
         return data
 
     def generate_chart(self, chart_data: dict) -> plotly.graph_objs.Figure | None:
-        """Create the altair chart based on chart data retrieved from the yaml.
+        """Create the Plotly figure based on chart data retrieved from the yaml.
         The chart data contains chart type, data source, values for x and y. The actual data has to be fetched from the datasource, which should be kept
         as an instance of the class Datasource.
         Args:
             chart_data: a dictionnary representing the chart parametrization
             Example: {"name": "example_chart", "type": "line", "datasource": "sample_datasource", "x": "x_data", "y": "y_data"}
         Returns:
-            An altait chart type, with its type corresponding to the value of the "type" key in the passed chart_data dict
+            A Plotly figure, with its type corresponding to the value of the "type" key in the passed chart_data dict
         """
-        charts_mapper = {
-            "line": self.generate_line_chart,
-            "bar": self.generate_bar_chart,
-        }
         chart_name = chart_data["name"]
         chart_type = chart_data["type"]
         chart_datasource = self.datasources.find_datasource(
@@ -50,29 +46,7 @@ class Dashboard:
         ).load_data()
         chart_x = chart_data["x"]
         chart_y = chart_data["y"]
-        chart_function = charts_mapper.get(chart_type)
 
-        if not chart_function:
-            raise NoChartType("The provided chart type is not recognized")
+        builder = CHARTS[chart_type]
 
-        return charts_mapper[chart_type](chart_name, chart_datasource, chart_x, chart_y)
-
-    def generate_line_chart(
-        self,
-        chart_name: str,
-        chart_datasource: pl.DataFrame,
-        chart_x: str,
-        chart_y: str,
-    ) -> plotly.graph_objs._figure.Figure:
-        chart = px.line(chart_datasource, x=chart_x, y=chart_y)
-        return chart
-
-    def generate_bar_chart(
-        self,
-        chart_name: str,
-        chart_datasource: pl.DataFrame,
-        chart_x: str,
-        chart_y: str,
-    ) -> plotly.graph_objs._figure.Figure:
-        chart = px.bar(chart_datasource, x=chart_x, y=chart_y)
-        return chart
+        return builder.build(chart_name, chart_datasource, chart_x, chart_y)
