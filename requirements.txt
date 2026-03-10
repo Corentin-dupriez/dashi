@@ -6,7 +6,6 @@ asttokens==3.0.1
 attrs==25.4.0
 click==8.3.1
 comm==0.2.3
--e git+https://github.com/Corentin-dupriez/dashi.git@520cadde6bff7e7c0dcfbe2edd7ea793338fffdb#egg=dashi
 decorator==5.2.1
 executing==2.2.1
 iniconfig==2.3.0
