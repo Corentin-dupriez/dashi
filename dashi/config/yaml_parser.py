@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Any
 import yaml
 
 
@@ -17,14 +18,16 @@ def parse_yaml(file_path: Path, file_type: str) -> dict:
     Returns:
         a dictionnary representing the content of the yaml file
     """
-    files = list(file_path.glob("*.y*ml"))
+    files: list = list(file_path.glob("*.y*ml"))
 
     if not files:
         raise NoConfigFile(f"No YAML config found in {file_path}")
 
     file = files[0]
     with open(file, "r") as f:
-        config = yaml.safe_load(f)
+        config: dict[Any, Any] | None = yaml.safe_load(f)
+
     if config is None:
         raise ValueError(f"{file} is empty")
+
     return config[file_type]
