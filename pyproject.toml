@@ -16,6 +16,7 @@ dependencies = [
 
 [tool.setuptools.packages.find]
 include = ["dashi*"]
+exclude = ["tests*"]
 
 [project.scripts]
 dashi = "dashi.cli:app"
