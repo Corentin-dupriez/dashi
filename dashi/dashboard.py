@@ -18,6 +18,8 @@ class Dashboard:
     def __init__(self, data_sources: Datasources) -> None:
         self.dash_data: dict = self.load_dashboard()
         self.title: str = self.dash_data["title"]
+        self.rows: int = self.dash_data["layout"].get("rows", 1)
+        self.cols: int = self.dash_data["layout"].get("columns", 1)
         self.datasources: Datasources = data_sources
         self.charts: List[Figure | None] = [
             self.generate_chart(chart) for chart in self.dash_data["charts"]

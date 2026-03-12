@@ -1,5 +1,7 @@
 dashboard: 
   title: Sales Overview
+  layout:
+    columns: 2
 
   charts:
     - name: revenue_over_time
