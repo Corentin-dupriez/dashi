@@ -12,6 +12,7 @@ dashboard:
       options: 
         title: Revenue Over Time
         template: plotly_white
+        banana: 2
 
     - name: orders_by_channel 
       type: bar

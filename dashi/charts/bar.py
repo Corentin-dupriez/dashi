@@ -15,6 +15,11 @@ class BarChart(BaseChart):
         fig = px.bar(data_frame=df, x=x, y=y, title=chart_name)
         print(options)
         if options is not None:
-            fig.update_layout(**options)
+            try:
+                fig.update_layout(**options)
+            except ValueError:
+                raise ValueError(
+                    "One of the options provided in the chart definition is incorrect"
+                )
         print(fig.layout)
         return fig
