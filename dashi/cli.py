@@ -7,6 +7,7 @@ from .dashboard import Dashboard
 from .render import render_dashboard
 from .serve import serve as serve_dashboard
 from .structure.initializer import structure_already_present, create_structure
+from pprint import pprint
 
 app = typer.Typer()
 

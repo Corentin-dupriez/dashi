@@ -51,7 +51,8 @@ class Dashboard:
         ).load_data()
         chart_x: str = chart_data["x"]
         chart_y: str = chart_data["y"]
+        options: dict = chart_data.get("options", None)
 
         builder: BaseChart = CHARTS[chart_type]
 
-        return builder.build(chart_name, chart_datasource, chart_x, chart_y)
+        return builder.build(chart_name, chart_datasource, chart_x, chart_y, options)

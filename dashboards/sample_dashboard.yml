@@ -9,9 +9,13 @@ dashboard:
       datasource: sample_data
       x: date
       y: revenue
+      options: 
+        title: Revenue Over Time
+        template: plotly_white
 
     - name: orders_by_channel 
       type: bar
       datasource: sample_data
       x: channel 
       y: orders
+
