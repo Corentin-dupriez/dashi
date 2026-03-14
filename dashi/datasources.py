@@ -31,7 +31,12 @@ class Datasources:
         return sources
 
     def find_datasource(self, source_name: str) -> "Datasource":
-        return [source for source in self.sources if source.name == source_name][0]
+        try:
+            return [source for source in self.sources if source.name == source_name][0]
+        except IndexError:
+            raise IndexError(
+                "The name of the datasource in the dashboard configuration doesn't correspond to any existing datasource"
+            )
 
 
 class Datasource:

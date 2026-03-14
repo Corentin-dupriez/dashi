@@ -1,4 +1,5 @@
 from dashi.charts.chart import BaseChart
+from dashi.transforms.transforms import apply_transforms
 from .config.yaml_parser import parse_yaml
 from .charts.registry import CHARTS
 from pathlib import Path
@@ -49,9 +50,12 @@ class Dashboard:
         chart_datasource: pl.DataFrame = self.datasources.find_datasource(
             chart_data["datasource"]
         ).load_data()
+        chart_transform: dict | None = chart_data.get("transform", None)
+        if chart_transform is not None:
+            self.datasource = apply_transforms(chart_datasource, chart_transform)
         chart_x: str = chart_data["x"]
         chart_y: str = chart_data["y"]
-        options: dict = chart_data.get("options", None)
+        options: dict | None = chart_data.get("options", None)
 
         builder: BaseChart = CHARTS[chart_type]
 

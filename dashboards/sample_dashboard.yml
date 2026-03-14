@@ -19,3 +19,8 @@ dashboard:
       x: channel 
       y: orders
 
+      transform: 
+        groupby: channel
+        metrics:
+          orders: count
+
