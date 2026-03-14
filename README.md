@@ -24,6 +24,40 @@ This allows dashboards to be:
 
 ## How to use
 
+### Install Dashi
+
+First, you should make sure that Python was installed. Version 3.14 and above
+are recommended
+
+`python --version`
+
+You can install dashi by cloning the repo with
+
+`git clone https://github.com/Corentin-dupriez/dashi`
+
+You should then install dependencies
+
+`pip install -r requirements.txt`
+
+### Initialize folder structure
+
+After having cloned the repo and installed dependencies, you can initiate the
+folder structure with
+
+`dashi init`
+
+This will create the following structure (if it doesn't already exist)
+
+```txt
++ data_sources
++ staging_data
++ templates
+  + dashboard_template.html
++ builds
+  + static
+    + style.css
+```
+
 ### Configuring data sources
 
 The first step of creating visualisations is done by defining data sources.
@@ -63,6 +97,12 @@ Each chart should be defined with:
 - datasource (corresponding to a datasource defined in `data_sources`)
 - x (corresponding to a column defined for the datasource)
 - y (corresponding to a column defined for the datasource)
+- options: allow a pass through of plotly options to the widget. For example:
+  - theme
+  - title
+  - font
+
+All the options that can be passed can be seen [on the Plotly documentation](https://plotly.com/python/reference/layout/)
 
 ```yaml
 dashboard: 
@@ -79,4 +119,19 @@ dashboard:
 ### dashi build
 
 Once both datasources and dashboards have been defined, the `dashi build`
-command can be used to create the dashboards based on the provided definitions
+command can be used to create the dashboards based on the provided definitions.
+
+This command will create html files under the `builds` folder.
+
+WARNING: `dashi build` will override previous version of the dashboards
+you have already exported
+
+### dashi serve
+
+The command `dashi serve` will create a simple http server on the port 8000
+by default. The created dashboards can be accessed from there.
+
+### dashi clean
+
+If you wish to clean up the created dashboards, you can use the `dashi clean` command.
+It will delete every html file within the `builds` folder
