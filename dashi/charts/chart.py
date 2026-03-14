@@ -3,6 +3,20 @@ import polars as pl
 
 class BaseChart:
     def build(
-        self, chart_name: str, df: pl.DataFrame, x: str, y: str, options: dict[str, str]
+        self,
+        chart_name: str,
+        df: pl.DataFrame,
+        x: str,
+        y: str,
+        options: dict[str, str] | None,
     ):
         raise NotImplementedError
+
+    def update_layout(self, fig, options: dict):
+        try:
+            fig.update_layout(**options)
+            return fig
+        except ValueError:
+            raise ValueError(
+                "One of the options provided in the chart definition is incorrect"
+            )

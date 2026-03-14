@@ -4,13 +4,15 @@ import plotly.express as px
 
 
 class LineChart(BaseChart):
-    def build(self, chart_name: str, df: pl.DataFrame, x, y, options):
+    def build(
+        self,
+        chart_name: str,
+        df: pl.DataFrame,
+        x: str,
+        y: str,
+        options: dict[str, str] | None,
+    ):
         fig = px.line(df, x=x, y=y, title=chart_name)
         if options is not None:
-            try:
-                fig.update_layout(**options)
-            except ValueError:
-                raise ValueError(
-                    "One of the options provided in the chart definition is incorrect"
-                )
+            self.update_layout(fig, options)
         return fig
