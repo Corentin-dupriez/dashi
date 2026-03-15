@@ -15,15 +15,16 @@ class Datasources:
         sources = []
 
         try:
-            data: dict[Any, Any] = parse_yaml(self.DATA_SOURCES_PATH, "datasource")
+            data: dict[Any, Any] = parse_yaml(self.DATA_SOURCES_PATH, "datasources")
 
-            sources.append(
-                Datasource(
-                    data["name"],
-                    data["type"],
-                    data["columns"],
+            for key, ds_settings in data.items():
+                sources.append(
+                    Datasource(
+                        ds_settings["name"],
+                        ds_settings["type"],
+                        ds_settings["columns"],
+                    )
                 )
-            )
 
         except NoConfigFile as e:
             print(e.message)
@@ -42,11 +43,16 @@ class Datasources:
 class Datasource:
     STAGING_DATA_PATH = Path.cwd() / "staging_data"
 
-    def __init__(self, name: str, data_type: str, columns: List[dict]) -> None:
+    def __init__(
+        self, name: str, data_type: str, columns: List[dict], path: str | None = None
+    ) -> None:
         self.name: str = name
         self.data_type: str = data_type
         self.columns: List[dict] = columns
-        self.path: Path = self.STAGING_DATA_PATH / f"{self.name}.{self.data_type}"
+        if path is None:
+            self.path: Path = self.STAGING_DATA_PATH / f"{self.name}.{self.data_type}"
+        else:
+            self.path = Path(path)
         self.data: pl.DataFrame = self.load_data()
 
     def __repr__(self) -> str:

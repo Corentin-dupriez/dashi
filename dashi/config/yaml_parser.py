@@ -30,5 +30,9 @@ def parse_yaml(file_path: Path, file_type: str) -> dict:
 
     if config is None:
         raise ValueError(f"{file} is empty")
-
-    return config[file_type]
+    try:
+        return config[file_type]
+    except KeyError:
+        raise ValueError(
+            "There is a problem with the datasource file (the format is incorrect)"
+        )

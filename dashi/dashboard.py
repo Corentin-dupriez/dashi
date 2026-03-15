@@ -52,8 +52,10 @@ class Dashboard:
             chart_data["datasource"]
         ).load_data()
         chart_transform: dict | None = chart_data.get("transform", None)
+
         if chart_transform is not None:
             chart_datasource = apply_transforms(chart_datasource, chart_transform)
+
         chart_x: str | None = (
             chart_data.get("x")
             if chart_data.get("x") is not None
@@ -64,6 +66,12 @@ class Dashboard:
             if chart_data.get("y") is not None
             else chart_data.get("names")
         )
+
+        if chart_x is None or chart_y is None:
+            raise ValueError(
+                "The dashboard parametrization is missing x/values or y/names"
+            )
+
         options: dict | None = chart_data.get("options", None)
 
         builder: BaseChart = CHARTS[chart_type]
