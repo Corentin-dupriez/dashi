@@ -20,22 +20,13 @@ datasources:
       - name: conversion_rate
         type: float
   datasource: 
-    name: sample_data
-    type: csv
+    name: users
+    type: json
     columns:
-      - name: date 
-        type: date
-      - name: channel
+      - name: name 
         type: string
-      - name: device
+      - name: age
+        type: integer
+      - name: city
         type: string
-      - name: visitors
-        type: integer
-      - name: orders
-        type: integer
-      - name: revenue
-        type: integer
-      - name: avg_order_value
-        type: integer 
-      - name: conversion_rate
-        type: float
+

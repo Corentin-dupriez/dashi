@@ -1,46 +1,10 @@
 from pathlib import Path
-from typing import List, Any, Union
-from .config.yaml_parser import parse_yaml, NoConfigFile
 import polars as pl
+from typing import List, Union
 from polars.datatypes import String, Float32, Int32, Date, Unknown
 
 
-class Datasources:
-    DATA_SOURCES_PATH = Path.cwd() / "data_sources"
-
-    def __init__(self) -> None:
-        self.sources: List[Datasource] = self.load_sources()
-
-    def load_sources(self):
-        sources = []
-
-        try:
-            data: dict[Any, Any] = parse_yaml(self.DATA_SOURCES_PATH, "datasources")
-
-            for key, ds_settings in data.items():
-                sources.append(
-                    Datasource(
-                        ds_settings["name"],
-                        ds_settings["type"],
-                        ds_settings["columns"],
-                    )
-                )
-
-        except NoConfigFile as e:
-            print(e.message)
-
-        return sources
-
-    def find_datasource(self, source_name: str) -> "Datasource":
-        try:
-            return [source for source in self.sources if source.name == source_name][0]
-        except IndexError:
-            raise IndexError(
-                "The name of the datasource in the dashboard configuration doesn't correspond to any existing datasource"
-            )
-
-
-class Datasource:
+class BaseDatasource:
     STAGING_DATA_PATH = Path.cwd() / "staging_data"
 
     def __init__(
@@ -79,10 +43,3 @@ class Datasource:
             "date": Date,
         }
         return datatypes_dict.get(datatype, Unknown)
-
-
-if __name__ == "__main__":
-    datasoures = Datasources()
-
-    for source in datasoures.sources:
-        print(source.data)
