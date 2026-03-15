@@ -13,5 +13,11 @@ def apply_transforms(dataframe: pl.DataFrame, transforms: dict) -> pl.DataFrame:
     for col, op in metrics.items():
         if op == "sum":
             aggs.append(pl.col(col).sum())
+        if op == "count":
+            aggs.append(pl.col(col).count())
+        if op == "average":
+            aggs.append(pl.col(col).mean())
+        if op == "median":
+            aggs.append(pl.col(col).median())
 
     return dataframe.group_by(groupby).agg(aggs)

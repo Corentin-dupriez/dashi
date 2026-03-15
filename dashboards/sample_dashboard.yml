@@ -22,5 +22,11 @@ dashboard:
       transform: 
         groupby: channel
         metrics:
-          orders: count
+          orders: sum
+
+    - name: channels
+      type: pie
+      datasource: sample_data
+      values: revenue
+      names: channel
 
