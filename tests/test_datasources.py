@@ -1,13 +1,13 @@
-from dashi.datasources import Datasource
+from dashi.datasources import BaseDatasource
 import pytest
 import polars as pl
 
 
 @pytest.fixture
 def data_source(mocker):
-    mocked_file = mocker.patch("dashi.datasources.Datasource.load_data")
+    mocked_file = mocker.patch("dashi.datasources.BaseDatasource.load_data")
     mocked_file.return_value = pl.DataFrame()
-    return Datasource(
+    return BaseDatasource(
         "test_data",
         "csv",
         [{"name": "name", "type": "string"}, {"name": "age", "type": "integer"}],
