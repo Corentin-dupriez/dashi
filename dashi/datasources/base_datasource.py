@@ -41,6 +41,8 @@ class BaseDatasource:
         datatypes_dict = {
             "string": String,
             "integer": Int32,
+            "int32": Int32,
+            "float32": Float32,
             "float": Float32,
             "date": Date,
         }
