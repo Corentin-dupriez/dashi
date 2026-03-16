@@ -2,6 +2,11 @@ from pathlib import Path
 from typing import Any
 import yaml
 
+try:
+    from yaml import CLoader as Loader, CDumper as Dumper
+except ImportError:
+    from yaml import Loader, Dumper
+
 
 class NoConfigFile(Exception):
     def __init__(self, message: str) -> None:
@@ -26,7 +31,7 @@ def parse_yaml(file_path: Path, file_type: str) -> dict:
 
     file = files[0]
     with open(file, "r") as f:
-        config: dict[Any, Any] | None = yaml.safe_load(f)
+        config: dict[Any, Any] | None = yaml.load(f, Loader=Loader)
 
     if config is None:
         raise ValueError(f"{file} is empty")

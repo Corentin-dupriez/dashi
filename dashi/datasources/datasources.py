@@ -1,6 +1,7 @@
 from pathlib import Path
 from typing import List, Any
 from dashi.config.yaml_parser import parse_yaml, NoConfigFile
+from dashi.datasources.registry import DATASOURCES
 from .base_datasource import BaseDatasource
 
 
@@ -16,9 +17,9 @@ class Datasources:
         try:
             data: dict[Any, Any] = parse_yaml(self.DATA_SOURCES_PATH, "datasources")
 
-            for _, ds_settings in data.items():
+            for ds_settings in data:
                 sources.append(
-                    BaseDatasource(
+                    DATASOURCES[ds_settings["type"]](
                         ds_settings["name"],
                         ds_settings["type"],
                         ds_settings["columns"],
@@ -27,7 +28,6 @@ class Datasources:
 
         except NoConfigFile as e:
             print(e.message)
-
         return sources
 
     def find_datasource(self, source_name: str) -> BaseDatasource:

@@ -30,3 +30,9 @@ dashboard:
       values: revenue
       names: channel
 
+    - name: user_age
+      type: pie
+      datasource: users
+      values: age
+      names: name
+

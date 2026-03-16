@@ -1,6 +1,5 @@
 datasources:
-  datasource: 
-    name: sample_data
+  - name: sample_data
     type: csv
     columns:
       - name: date 
@@ -19,8 +18,7 @@ datasources:
         type: integer 
       - name: conversion_rate
         type: float
-  datasource: 
-    name: users
+  - name: users
     type: json
     columns:
       - name: name 
