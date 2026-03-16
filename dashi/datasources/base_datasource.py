@@ -23,12 +23,14 @@ class BaseDatasource:
         return f"Datasource {self.name}, from {self.data_type}, with columns\n{'\n'.join(f' - {col["name"]}: {col["type"]}' for col in self.columns)}"
 
     def load_data(self) -> pl.DataFrame:
+        raise NotImplementedError
+
+    def load_schema(self) -> dict:
         schema: dict = {
             col["name"]: self.convert_type_to_pl_datatype(col["type"])
             for col in self.columns
         }
-        data: pl.DataFrame = pl.read_csv(self.path, schema=schema)
-        return data
+        return schema
 
     @staticmethod
     def convert_type_to_pl_datatype(
