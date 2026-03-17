@@ -8,9 +8,9 @@ import polars as pl
 
 @pytest.fixture
 def data_source(mocker):
-    mocked_file = mocker.patch("dashi.datasources.BaseDatasource.load_data")
+    mocked_file = mocker.patch("dashi.datasources.CsvDatasource.load_data")
     mocked_file.return_value = pl.DataFrame()
-    return BaseDatasource(
+    return CsvDatasource(
         "test_data",
         "csv",
         [{"name": "name", "type": "string"}, {"name": "age", "type": "integer"}],
@@ -50,3 +50,17 @@ def test_csv_datasource_default_path(data_source):
 def test_datasources_registery_returns_correct_datasource():
     assert DATASOURCES["csv"] is CsvDatasource
     assert DATASOURCES["json"] is JsonDatasource
+
+
+def test_datasource_load_schema_returns_schema_dict(data_source):
+    assert data_source.load_schema() == {
+        "name": pl.datatypes.String,
+        "age": pl.datatypes.Int32,
+    }
+
+
+def tests_repr_datasource_returns_details_string(data_source):
+    assert (
+        data_source.__repr__()
+        == f"Datasource {data_source.name}, from {data_source.data_type}, with columns\n{'\n'.join(f' - {col["name"]}: {col["type"]}' for col in data_source.columns)}"
+    )
