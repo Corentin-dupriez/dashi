@@ -62,21 +62,21 @@ This will create the following structure (if it doesn't already exist)
 
 The first step of creating visualisations is done by defining data sources.
 This should be done in the data_sources folder as yaml files.
-The file should contain the datasource name, type and columns
+The file contains a list of datasources, with the datasources name, type and columns
 (containing the name of the column and the data type)
 
 ```yaml
-datasource:
-  name: sample_data
-  type: csv
-  columns:
-    - name: id
-      type: integer
-    - name: name
-      type: string
+datasources:
+  - name: sample_data
+    type: csv
+    columns:
+      - name: id
+        type: integer
+      - name: name
+        type: string
 ```
 
-For the moment, only the csv datasource type is supported,
+For the moment, only the csv and json datasource types are supported,
 but more formats will be supported soon.
 The datasource name must match the filename (without the extension)
 of the data file stored in the `staging_data` folder.
@@ -101,6 +101,12 @@ Each chart should be defined with:
   - theme
   - title
   - font
+- transforms: contains instructions on transformation of the data before plotting.
+This includes:
+  - group by
+  - sum
+  - average
+  - count
 
 All the options that can be passed can be seen [on the Plotly documentation](https://plotly.com/python/reference/layout/)
 
@@ -110,10 +116,18 @@ dashboard:
 
   charts: 
     - name: sample_chart
-      type: line
+      type: bar
       datasource: sample_data
-      x: time
-      y: profit
+      x: channel
+      y: orders
+      options: 
+        title: Orders by channel
+        template: plotly_white
+      transform:
+        groupby: channel
+        metrics:
+          orders: sum
+
 ```
 
 ### dashi build
