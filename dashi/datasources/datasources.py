@@ -18,13 +18,7 @@ class Datasources:
             data: dict[Any, Any] = parse_yaml(self.DATA_SOURCES_PATH, "datasources")
 
             for ds_settings in data:
-                sources.append(
-                    DATASOURCES[ds_settings["type"]](
-                        ds_settings["name"],
-                        ds_settings["type"],
-                        ds_settings["columns"],
-                    )
-                )
+                sources.append(DATASOURCES[ds_settings["type"]](ds_settings))
 
         except NoConfigFile as e:
             print(e.message)
