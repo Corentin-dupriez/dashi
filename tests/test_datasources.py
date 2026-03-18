@@ -11,9 +11,14 @@ def data_source(mocker):
     mocked_file = mocker.patch("dashi.datasources.CsvDatasource.load_data")
     mocked_file.return_value = pl.DataFrame()
     return CsvDatasource(
-        "test_data",
-        "csv",
-        [{"name": "name", "type": "string"}, {"name": "age", "type": "integer"}],
+        {
+            "name": "test_data",
+            "type": "csv",
+            "columns": [
+                {"name": "name", "type": "string"},
+                {"name": "age", "type": "integer"},
+            ],
+        }
     )
 
 
