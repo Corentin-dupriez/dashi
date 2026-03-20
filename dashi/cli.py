@@ -6,7 +6,11 @@ from .datasources import Datasources
 from .dashboard import Dashboard
 from .render import render_dashboard
 from .serve import serve as serve_dashboard
-from .structure.initializer import structure_already_present, create_structure
+from .structure.initializer import (
+    create_dashboard_template,
+    structure_already_present,
+    create_structure,
+)
 from pprint import pprint
 
 app = typer.Typer()
@@ -18,6 +22,8 @@ def init() -> None:
         create_structure()
     else:
         print("Structure is already present, skipping creation")
+
+    create_dashboard_template()
 
 
 @app.command()

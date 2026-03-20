@@ -1,16 +1,83 @@
 from pathlib import Path
 
-folders = ["data_sources", "staging_data", "dashboards"]
+DASHI_FOLDERS = ["data_sources", "staging_data", "dashboards"]
 
 
 def structure_already_present() -> bool:
-    if any([Path.exists(Path.cwd() / folder) for folder in folders]):
+    """
+    Checks if any of the DASHI_FOLDERS is alread present in the current project structure
+    Return:
+        A boolean value indicating if any folder from the DASHI_FOLDERS is found in the project structure
+    """
+    if any([Path.exists(Path.cwd() / folder) for folder in DASHI_FOLDERS]):
         return True
     return False
 
 
 def create_structure() -> None:
+    """
+    Creates the wanted folder structure for dashi to work.
+    To do this, the function creates folders in the constant DASHI_FOLDERS
+    """
     root = Path.cwd()
-    for folder in folders:
+    for folder in DASHI_FOLDERS:
         new_folder = Path(root / folder)
         new_folder.mkdir()
+
+
+def create_dashboard_template():
+    dashboard_template_file = Path().cwd() / "templates" / "dashboard_template.html"
+
+    with open(dashboard_template_file, "w") as f:
+        f.write(
+            """
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title }}</title>
+
+    <script src="https://cdn.plot.ly/plotly-2.30.0.min.js"></script>
+    <link rel="stylesheet" href="static/style.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <header>
+    <h1>Dashi</h1>
+    
+  </header>
+
+  <main>
+    <h2>{{ title }}</h2>
+    <div class="grid" style="grid-template-columns: repeat({{cols}}, 1fr);">
+      
+      {% for chart in charts %}
+      <div id="{{ chart.id }}" class="chart"></div>
+      {% endfor %}
+
+    </div>
+  </main>
+  <script>
+    {% for chart in charts %}
+
+    const fig_{{ loop.index }} = {{ chart.figure | safe }};
+
+    Plotly.newPlot(
+        "{{ chart.id }}",
+        fig_{{ loop.index }}.data,
+        fig_{{ loop.index }}.layout
+    );
+
+    {% endfor %}
+  </script>
+
+  </body>
+</html>
+            """
+        )

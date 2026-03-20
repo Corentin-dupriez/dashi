@@ -216,4 +216,8 @@ __marimo__/
 .streamlit/secrets.toml
 
 #dashi generated content
-builds/*.html
+builds/
+dashboards/
+data_sources/
+staging_data/
+templates/
