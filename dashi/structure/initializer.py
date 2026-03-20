@@ -81,3 +81,53 @@ def create_dashboard_template():
 </html>
             """
         )
+
+
+def create_stylesheet() -> None:
+    staticfile = Path().cwd() / "builds" / "static" / "style.css"
+
+    with open(staticfile, "w") as f:
+        f.write(
+            """
+body, html { 
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.chart {
+    border: 1px solid #eee;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+header {
+  background-color: black;
+  height: 4rem;
+  display: flex;
+  align-items:center;
+}
+
+h1 {
+  font-family: "Silkscreen", sans-serif;
+  color: white;
+  margin: 2rem;
+  align-items: center;
+}
+
+h2 {
+  font-family: "Open Sans", sans-serif;
+}
+
+main {
+  padding: 0.5rem 2rem;
+}
+            """
+        )
