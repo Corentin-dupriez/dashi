@@ -6,7 +6,7 @@ dashboard:
   charts:
     - name: revenue_over_time
       type: line
-      datasource: sample_data
+      datasource: sales
       x: date
       y: revenue
       options: 
@@ -15,7 +15,7 @@ dashboard:
 
     - name: orders_by_channel 
       type: bar
-      datasource: sample_data
+      datasource: sales
       x: channel 
       y: orders
 
@@ -26,7 +26,7 @@ dashboard:
 
     - name: channels
       type: pie
-      datasource: sample_data
+      datasource: sales
       values: revenue
       names: channel
 
@@ -35,4 +35,15 @@ dashboard:
       datasource: users
       values: age
       names: name
+
+    - name: users_by_team
+      type: bar
+      datasource: sample_data
+      x: team
+      y: name
+
+      transform:
+        groupby: team
+        metrics:
+          name: count
 
