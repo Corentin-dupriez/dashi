@@ -2,6 +2,14 @@ import polars as pl
 
 
 def apply_transforms(dataframe: pl.DataFrame, transforms: dict) -> pl.DataFrame:
+    """
+    Takes a Dataframe and applies transformations if needed.
+    Args:
+        dataframe: A polars dataframe
+        transforms: A list of transformations to apply (group_by, sum, count ...)
+    Returns:
+        A polars dataframe updated with the applied transforms
+    """
     groupby = transforms.get("groupby")
     metrics = transforms.get("metrics")
 

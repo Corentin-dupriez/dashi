@@ -25,7 +25,10 @@ def create_structure() -> None:
         new_folder.mkdir()
 
 
-def create_dashboard_template():
+def create_dashboard_template() -> None:
+    """
+    Creates the dashboard template which will be used to generate new dashboards
+    """
     dashboard_template_file = Path().cwd() / "templates" / "dashboard_template.html"
 
     with open(dashboard_template_file, "w") as f:
@@ -84,6 +87,9 @@ def create_dashboard_template():
 
 
 def create_stylesheet() -> None:
+    """
+    Creates the css stylesheet used for the dashboards
+    """
     staticfile = Path().cwd() / "builds" / "static" / "style.css"
 
     with open(staticfile, "w") as f:
