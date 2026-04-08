@@ -11,8 +11,6 @@ def serve() -> None:
 
     os.chdir(Path.cwd() / "builds")
 
-    print(Path.cwd())
-
     with socketserver.TCPServer(("", PORT), handler) as httpd:
         print(f"Serving on http://localhost:{PORT}")
         httpd.serve_forever()

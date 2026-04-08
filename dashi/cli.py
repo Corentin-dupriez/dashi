@@ -11,13 +11,17 @@ from .structure.initializer import (
     structure_already_present,
     create_structure,
 )
-from pprint import pprint
 
 app = typer.Typer()
 
 
 @app.command()
 def init() -> None:
+    """
+    Initializes dashi folder structure.
+    If the structure is already present, it will be skipped.
+    After creating the structure, creates the dashboard template, which will be used to generate new dashboards.
+    """
     if not structure_already_present():
         create_structure()
     else:
@@ -39,11 +43,17 @@ def build() -> None:
 
 @app.command()
 def serve() -> None:
+    """
+    Creates a simple server to display the generated dashboards
+    """
     serve_dashboard()
 
 
 @app.command()
 def clean() -> None:
+    """
+    Cleans the dashboard folder from the generated dashboards.
+    """
     clean_builds()
 
 

@@ -1,4 +1,4 @@
-dashboard: 
+dashboard:
   title: Sales Overview
   layout:
     columns: 2
@@ -9,17 +9,17 @@ dashboard:
       datasource: sales
       x: date
       y: revenue
-      options: 
+      options:
         title: Revenue Over Time
         template: plotly_white
 
-    - name: orders_by_channel 
+    - name: orders_by_channel
       type: bar
       datasource: sales
-      x: channel 
+      x: channel
       y: orders
 
-      transform: 
+      transform:
         groupby: channel
         metrics:
           orders: sum
@@ -47,3 +47,10 @@ dashboard:
         metrics:
           name: count
 
+    - name: users
+      type: table
+      datasource: users
+      columns:
+        - name
+        - age
+        - city

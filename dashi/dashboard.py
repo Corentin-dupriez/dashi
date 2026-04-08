@@ -23,7 +23,7 @@ class Dashboard:
         self.rows: int = self.dash_data["layout"].get("rows", 1)
         self.cols: int = self.dash_data["layout"].get("columns", 1)
         self.datasources: Datasources = data_sources
-        self.charts: List[Figure | None] = [
+        self.charts: List[Figure] = [
             self.generate_chart(chart) for chart in self.dash_data["charts"]
         ]
 
@@ -36,7 +36,7 @@ class Dashboard:
         data: dict[str, str] = parse_yaml(self.DASHBOARD_FOLDER, "dashboard")
         return data
 
-    def generate_chart(self, chart_data: dict) -> Figure | None:
+    def generate_chart(self, chart_data: dict) -> Figure:
         """Create the Plotly figure based on chart data retrieved from the yaml.
         The chart data contains chart type, data source, values for x and y. The actual data has to be fetched from the datasource, which should be kept
         as an instance of the class Datasource.
@@ -51,31 +51,38 @@ class Dashboard:
         chart_datasource: pl.DataFrame = self.datasources.find_datasource(
             chart_data["datasource"]
         ).load_data()
-        chart_transform: dict | None = chart_data.get("transform", None)
 
-        if chart_transform is not None:
-            chart_datasource = apply_transforms(chart_datasource, chart_transform)
+        chart_settings = {}
 
-        chart_x: str | None = (
-            chart_data.get("x")
-            if chart_data.get("x") is not None
-            else chart_data.get("values")
-        )
-        chart_y: str | None = (
-            chart_data.get("y")
-            if chart_data.get("y") is not None
-            else chart_data.get("names")
-        )
+        if chart_type != "table":
+            chart_transform = chart_data.get("transform", None)
 
-        if chart_x is None or chart_y is None:
-            raise ValueError(
-                "The dashboard parametrization is missing x/values or y/names"
+            if chart_transform is not None:
+                chart_datasource = apply_transforms(chart_datasource, chart_transform)
+
+            chart_settings["x"] = (
+                chart_data.get("x")
+                if chart_data.get("x") is not None
+                else chart_data.get("values")
+            )
+            chart_settings["y"] = (
+                chart_data.get("y")
+                if chart_data.get("y") is not None
+                else chart_data.get("names")
             )
 
-        options: dict | None = chart_data.get("options", None)
+            if chart_settings["x"] is None or chart_settings["y"] is None:
+                raise ValueError(
+                    "The dashboard parametrization is missing x/values or y/names"
+                )
+
+            chart_settings["options"] = chart_data.get("options", None)
+        else:
+            table_cols = chart_data.get("columns")
+            chart_settings["columns"] = table_cols
 
         builder: BaseChart = CHARTS[chart_type]
 
         return builder.build(
-            prettify_title(chart_name), chart_datasource, chart_x, chart_y, options
+            prettify_title(chart_name), chart_datasource, **chart_settings
         )
