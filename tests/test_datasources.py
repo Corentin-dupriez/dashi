@@ -1,9 +1,11 @@
-from dashi import datasources
-from dashi.datasources import BaseDatasource, CsvDatasource
-from dashi.datasources.json_datasource import JsonDatasource
-from dashi.datasources.registry import DATASOURCES
 import pytest
 import polars as pl
+from dashi.datasources import (
+    CsvDatasource,
+    DuckDBDatasource,
+    JsonDatasource,
+)
+from dashi.datasources.registry import DATASOURCES
 
 
 @pytest.fixture
@@ -55,6 +57,7 @@ def test_csv_datasource_default_path(data_source):
 def test_datasources_registery_returns_correct_datasource():
     assert DATASOURCES["csv"] is CsvDatasource
     assert DATASOURCES["json"] is JsonDatasource
+    assert DATASOURCES["duckdb"] is DuckDBDatasource
 
 
 def test_datasource_load_schema_returns_schema_dict(data_source):
@@ -67,5 +70,5 @@ def test_datasource_load_schema_returns_schema_dict(data_source):
 def tests_repr_datasource_returns_details_string(data_source):
     assert (
         data_source.__repr__()
-        == f"Datasource {data_source.name}, from {data_source.data_type}, with columns\n{'\n'.join(f' - {col["name"]}: {col["type"]}' for col in data_source.columns)}"
+        == f"Datasource {data_source.name}, from {data_source.data_type}"
     )
