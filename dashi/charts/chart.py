@@ -1,7 +1,8 @@
 import polars as pl
+from abc import ABC
 
 
-class BaseChart:
+class BaseChart(ABC):
     def build(
         self,
         chart_name: str,

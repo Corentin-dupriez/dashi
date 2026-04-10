@@ -54,3 +54,11 @@ dashboard:
         - name
         - age
         - city
+
+    - name: test
+      type: table
+      datasource: postgres
+      columns:
+        - first_name
+        - last_name
+        - age
