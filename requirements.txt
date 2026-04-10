@@ -1,3 +1,4 @@
+altair_tiles==0.4.0
 annotated-doc==0.0.4
 anywidget==0.9.21
 arro3-core==0.8.0
@@ -33,6 +34,7 @@ pluggy==1.6.0
 polars==1.38.1
 polars-runtime-32==1.38.1
 prompt_toolkit==3.0.52
+psycopg2==2.9.11
 psygnal==0.15.1
 ptyprocess==0.7.0
 pure_eval==0.2.3
