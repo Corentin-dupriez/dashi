@@ -1,4 +1,4 @@
-from src.helpers import prettify_title
+from dashi.helpers import prettify_title
 
 
 def test_prettify_title():

@@ -1,4 +1,4 @@
-from src.config.yaml_parser import NoConfigFile, parse_yaml
+from dashi.config.yaml_parser import NoConfigFile, parse_yaml
 import pytest
 from pathlib import Path
 

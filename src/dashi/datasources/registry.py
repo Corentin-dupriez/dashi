@@ -1,4 +1,4 @@
-from src.datasources.postgres_datasource import PostgresDatasource
+from .postgres_datasource import PostgresDatasource
 from .csv_datasource import CsvDatasource
 from .json_datasource import JsonDatasource
 from .sql_datasource import SqlDatasource

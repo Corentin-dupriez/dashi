@@ -1,7 +1,7 @@
 import polars as pl
 import psycopg2
-from src.datasources.login_mixin import LoginMixin
-from src.datasources.sql_datasource import SqlDatasource
+from .login_mixin import LoginMixin
+from .sql_datasource import SqlDatasource
 
 
 class PostgresDatasource(SqlDatasource, LoginMixin):

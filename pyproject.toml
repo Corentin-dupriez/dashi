@@ -9,8 +9,9 @@ description = "Dashboard as code tool"
 dependencies = ["polars", "plotly", "pyyaml", "jinja2", "typer"]
 
 [tool.setuptools.packages.find]
-include = ["src*"]
+where = ["src"]
+include = ["dashi*"]
 exclude = ["tests*"]
 
 [project.scripts]
-dashi = "src.cli:app"
+dashi = "dashi.cli:app"

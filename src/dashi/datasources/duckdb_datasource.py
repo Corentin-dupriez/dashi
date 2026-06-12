@@ -1,5 +1,5 @@
 from pathlib import Path
-from src.datasources.sql_datasource import SqlDatasource
+from .sql_datasource import SqlDatasource
 import duckdb
 import polars as pl
 

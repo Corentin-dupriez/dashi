@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import List, Any
-from src.config.yaml_parser import parse_yaml, NoConfigFile
-from src.datasources.registry import DATASOURCES
+from dashi.config.yaml_parser import parse_yaml, NoConfigFile
+from .registry import DATASOURCES
 from .base_datasource import BaseDatasource
 
 

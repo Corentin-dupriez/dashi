@@ -1,5 +1,5 @@
 import polars as pl
-from src.datasources.base_datasource import BaseDatasource
+from .base_datasource import BaseDatasource
 from abc import ABC
 
 

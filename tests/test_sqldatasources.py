@@ -1,5 +1,5 @@
 import pytest
-from src.datasources import PostgresDatasource
+from dashi.datasources import PostgresDatasource
 
 
 @pytest.fixture
