@@ -8,5 +8,9 @@ DATASOURCES = {
     "csv": CsvDatasource,
     "json": JsonDatasource,
     "duckdb": DuckDBDatasource,
+<<<<<<< HEAD:dashi/datasources/registry.py
     "postgres": PostgresDatasource,
+=======
+    "postgres": SqlDatasource,
+>>>>>>> 6f0c145 (Renamed source folder to src. Added SQL datasource in registry):src/datasources/registry.py
 }

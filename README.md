@@ -2,7 +2,7 @@
 
 dashi is a dashboard-as-code application that allows you to create dashboards
 from yaml files. It used Polars for fast and efficient dataframe processing,
-and Altair for visualisation.
+and Plotly for visualisation.
 
 ## Status
 
@@ -61,9 +61,12 @@ This will create the following structure (if it doesn't already exist)
 ### Configuring data sources
 
 The first step of creating visualisations is done by defining data sources.
-This should be done in the data_sources folder as yaml files.
-The file contains a list of datasources, with the datasources name, type and columns
-(containing the name of the column and the data type)
+This should be done in the data_sources folder as a yaml file. This file
+should contain the parametrization listed below.
+
+#### Csv and JSON datasources
+
+Csv and JSON
 
 ```yaml
 datasources:
@@ -76,7 +79,7 @@ datasources:
         type: string
 ```
 
-For the moment, only the csv and json datasource types are supported,
+For the moment, only the csv, json, duckdb and PostgreSQL datasource types are supported,
 but more formats will be supported soon.
 The datasource name must match the filename (without the extension)
 of the data file stored in the `staging_data` folder.
