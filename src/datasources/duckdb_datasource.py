@@ -1,5 +1,5 @@
 from pathlib import Path
-from dashi.datasources.sql_datasource import SqlDatasource
+from datasources.sql_datasource import SqlDatasource
 import duckdb
 import polars as pl
 

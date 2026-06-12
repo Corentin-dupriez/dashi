@@ -1,7 +1,7 @@
 import plotly.express as px
 import polars as pl
 
-from dashi.charts.chart import BaseChart
+from charts.chart import BaseChart
 
 
 class PieChart(BaseChart):

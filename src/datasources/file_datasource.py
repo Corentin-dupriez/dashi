@@ -1,6 +1,6 @@
 from pathlib import Path
 from typing import List, Union
-from dashi.datasources.base_datasource import BaseDatasource
+from datasources.base_datasource import BaseDatasource
 from polars.datatypes import String, Float32, Int32, Date, Unknown
 
 

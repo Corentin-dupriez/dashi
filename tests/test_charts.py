@@ -1,8 +1,8 @@
-from dashi.charts import BaseChart, CHARTS
-from dashi.charts.bar import BarChart
-from dashi.charts.line import LineChart
-from dashi.charts.pie import PieChart
-from dashi.charts.scatter import ScatterChart
+from charts import BaseChart, CHARTS
+from charts.bar import BarChart
+from charts.line import LineChart
+from charts.pie import PieChart
+from charts.scatter import ScatterChart
 import pytest
 
 

@@ -1,11 +1,11 @@
 import pytest
 import polars as pl
-from dashi.datasources import (
+from datasources import (
     CsvDatasource,
     DuckDBDatasource,
     JsonDatasource,
 )
-from dashi.datasources.registry import DATASOURCES
+from datasources.registry import DATASOURCES
 
 
 @pytest.fixture

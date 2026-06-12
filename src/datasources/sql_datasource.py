@@ -1,5 +1,5 @@
 import polars as pl
-from dashi.datasources.base_datasource import BaseDatasource
+from datasources.base_datasource import BaseDatasource
 from abc import ABC
 
 
