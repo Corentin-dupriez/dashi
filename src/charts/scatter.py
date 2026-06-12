@@ -1,7 +1,7 @@
 import plotly.express as px
 import polars as pl
 
-from charts.chart import BaseChart
+from .chart import BaseChart
 
 
 class ScatterChart(BaseChart):

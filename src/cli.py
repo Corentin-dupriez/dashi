@@ -1,7 +1,7 @@
 import typer
 import plotly.io as pio
 
-from structure.cleaner import clean_builds
+from .structure.cleaner import clean_builds
 from .datasources import Datasources
 from .dashboard import Dashboard
 from .render import render_dashboard

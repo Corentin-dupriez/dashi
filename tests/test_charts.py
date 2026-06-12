@@ -1,8 +1,8 @@
-from charts import BaseChart, CHARTS
-from charts.bar import BarChart
-from charts.line import LineChart
-from charts.pie import PieChart
-from charts.scatter import ScatterChart
+from src.charts import BaseChart, CHARTS
+from src.charts.bar import BarChart
+from src.charts.line import LineChart
+from src.charts.pie import PieChart
+from src.charts.scatter import ScatterChart
 import pytest
 
 

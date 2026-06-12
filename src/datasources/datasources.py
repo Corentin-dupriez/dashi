@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import List, Any
-from config.yaml_parser import parse_yaml, NoConfigFile
-from datasources.registry import DATASOURCES
+from src.config.yaml_parser import parse_yaml, NoConfigFile
+from src.datasources.registry import DATASOURCES
 from .base_datasource import BaseDatasource
 
 

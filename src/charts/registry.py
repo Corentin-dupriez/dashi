@@ -1,5 +1,5 @@
-from charts.pie import PieChart
-from charts.table import Table
+from .pie import PieChart
+from .table import Table
 from .bar import BarChart
 from .line import LineChart
 from .scatter import ScatterChart

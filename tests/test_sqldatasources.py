@@ -1,5 +1,5 @@
 import pytest
-from datasources import PostgresDatasource
+from src.datasources import PostgresDatasource
 
 
 @pytest.fixture

@@ -6,17 +6,11 @@ build-backend = "setuptools.build_meta"
 name = "dashi"
 version = "0.0.1"
 description = "Dashboard as code tool"
-dependencies = [
-  "polars",
-  "plotly",
-  "pyyaml",
-  "jinja2",
-  "typer"
-]
+dependencies = ["polars", "plotly", "pyyaml", "jinja2", "typer"]
 
 [tool.setuptools.packages.find]
-include = ["dashi*"]
+include = ["src*"]
 exclude = ["tests*"]
 
 [project.scripts]
-dashi = "dashi.cli:app"
+dashi = "src.cli:app"

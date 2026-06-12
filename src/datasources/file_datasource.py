@@ -1,6 +1,6 @@
 from pathlib import Path
 from typing import List, Union
-from datasources.base_datasource import BaseDatasource
+from src.datasources.base_datasource import BaseDatasource
 from polars.datatypes import String, Float32, Int32, Date, Unknown
 
 
