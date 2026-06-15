@@ -1,5 +1,4 @@
 from abc import ABC
-import psycopg2
 
 
 class LoginMixin(ABC):
@@ -18,5 +17,5 @@ class LoginMixin(ABC):
         }
         return connection_info
 
-    def login(self, connection_info: dict) -> psycopg2.extensions.connection:
+    def login(self, connection_info: dict):
         raise NotImplementedError
