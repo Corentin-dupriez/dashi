@@ -11,7 +11,7 @@ class ScatterChart(BaseChart):
         df: pl.DataFrame,
         x: str,
         y: str,
-        options: dict[str, str] | None,
+        options: dict[str, str] | None = None,
     ):
         fig = px.scatter(df, x=x, y=y, title=chart_name)
         if options is not None:

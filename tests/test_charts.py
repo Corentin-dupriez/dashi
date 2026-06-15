@@ -36,6 +36,28 @@ def test_build_bar_chart_with_options_returns_fig(sample_df):
     assert fig.data[0].x.tolist() == ["a", "b", "a", "b", "a"]
 
 
+def test_build_scatter_chart_no_options_returns_fig(sample_df):
+    chart = ScatterChart()
+    fig = chart.build("test", sample_df, "category", "value")
+    assert fig.layout.title.text == "test"
+    assert fig.data[0].type == "scatter"
+    assert fig.data[0].x.tolist() == ["a", "b", "a", "b", "a"]
+
+
+def test_build_scatter_chart_with_options_returns_fig(sample_df):
+    chart = ScatterChart()
+    fig = chart.build(
+        "test",
+        sample_df,
+        "category",
+        "value",
+        options={"title": "Test title", "template": "plotly_white"},
+    )
+    assert fig.layout.title.text == "Test title"
+    assert fig.data[0].type == "scatter"
+    assert fig.data[0].x.tolist() == ["a", "b", "a", "b", "a"]
+
+
 def test_registry_chart_exists_returns_chart():
     assert type(CHARTS["line"]) is LineChart
     assert type(CHARTS["bar"]) is BarChart
