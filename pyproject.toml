@@ -7,7 +7,7 @@ name = "dashi"
 version = "0.0.1"
 description = "Dashboard as code tool - turn YAML configs into standalone HTML dashboards"
 readme = "README.md"
-requires_python = ">=3.9"
+requires-python = ">=3.9"
 license = { text = "MIT" }
 authors = [{ name = "Corentin Dupriez" }]
 classifiers = [
