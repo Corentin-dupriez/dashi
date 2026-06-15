@@ -41,6 +41,7 @@ def test_build_scatter_chart_no_options_returns_fig(sample_df):
     fig = chart.build("test", sample_df, "category", "value")
     assert fig.layout.title.text == "test"
     assert fig.data[0].type == "scatter"
+    assert fig.data[0].mode == "markers"
     assert fig.data[0].x.tolist() == ["a", "b", "a", "b", "a"]
 
 
@@ -55,6 +56,7 @@ def test_build_scatter_chart_with_options_returns_fig(sample_df):
     )
     assert fig.layout.title.text == "Test title"
     assert fig.data[0].type == "scatter"
+    assert fig.data[0].mode == "markers"
     assert fig.data[0].x.tolist() == ["a", "b", "a", "b", "a"]
 
 
@@ -62,7 +64,8 @@ def test_build_line_chart_no_options_returns_fig(sample_df):
     chart = LineChart()
     fig = chart.build("test", sample_df, "category", "value")
     assert fig.layout.title.text == "test"
-    assert fig.data[0].type == "line"
+    assert fig.data[0].type == "scatter"
+    assert fig.data[0].mode == "lines"
     assert fig.data[0].x.tolist() == ["a", "b", "a", "b", "a"]
 
 
@@ -76,7 +79,8 @@ def test_build_line_chart_with_options_returns_fig(sample_df):
         options={"title": "Test title", "template": "plotly_white"},
     )
     assert fig.layout.title.text == "Test title"
-    assert fig.data[0].type == "line"
+    assert fig.data[0].type == "scatter"
+    assert fig.data[0].mode == "lines"
     assert fig.data[0].x.tolist() == ["a", "b", "a", "b", "a"]
 
 
