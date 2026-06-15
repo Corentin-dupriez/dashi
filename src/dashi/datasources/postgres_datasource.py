@@ -1,5 +1,4 @@
 import polars as pl
-import psycopg2
 from .login_mixin import LoginMixin
 from .sql_datasource import SqlDatasource
 
@@ -28,7 +27,14 @@ class PostgresDatasource(SqlDatasource, LoginMixin):
         self.conn = self.login(self.connection_info)
         self._datatypes = self._load_datatypes()
 
-    def login(self, connection_info: dict) -> psycopg2.extensions.connection:
+    def login(self, connection_info: dict):
+        try:
+            import psycopg2
+        except ImportError:
+            raise ImportError(
+                "psycopg2 is required for PostgreSQL support. "
+                'Install it with: pip install "dashi[postgres]'
+            )
         try:
             return psycopg2.connect(**connection_info)
         except psycopg2.DatabaseError as err:

@@ -26,18 +26,14 @@ This allows dashboards to be:
 
 ### Install Dashi
 
-First, you should make sure that Python was installed. Version 3.14 and above
-are recommended
-
+First, make sure Python 3.9 or above is installed:
 `python --version`
 
-You can install dashi by cloning the repo with
+Install dashi from Pypi:
+`pip install dashi`
 
-`git clone https://github.com/Corentin-dupriez/dashi`
-
-You should then install dependencies
-
-`pip install -r requirements.txt`
+For PostgreSQL datasource support, install the optional extra:
+`pip install dashi[postgres]`
 
 ### Initialize folder structure
 

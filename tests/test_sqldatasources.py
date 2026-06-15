@@ -6,9 +6,7 @@ from dashi.datasources import PostgresDatasource
 def postgres_datasource(mocker):
     mock_conn = mocker.MagicMock()
     mock_conn.__enter__.return_value = mock_conn
-    mocker.patch(
-        "dashi.datasources.postgres_datasource.psycopg2.connect", return_value=mock_conn
-    )
+    mocker.patch("psycopg2.connect", return_value=mock_conn)
     source_def = {
         "name": "test",
         "type": "postgres",
