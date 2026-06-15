@@ -221,3 +221,5 @@ dashboards/
 data_sources/
 staging_data/
 templates/
+
+.DS_Store
