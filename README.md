@@ -30,7 +30,7 @@ First, make sure Python 3.9 or above is installed:
 `python --version`
 
 Install dashi from Pypi:
-`pip install dashi`
+`pip install dashiyaml`
 
 For PostgreSQL datasource support, install the optional extra:
 `pip install dashi[postgres]`
