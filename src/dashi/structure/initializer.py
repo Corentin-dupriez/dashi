@@ -1,6 +1,6 @@
 from pathlib import Path
 
-DASHI_FOLDERS = ["data_sources", "staging_data", "dashboards"]
+DASHI_FOLDERS = ["data_sources", "staging_data", "dashboards", "templates"]
 
 
 def structure_already_present() -> bool:

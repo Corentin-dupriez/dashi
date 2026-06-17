@@ -24,7 +24,15 @@ classifiers = [
   "Topic :: Scientific/Engineering :: Visualization",
   "Topic :: Utilities",
 ]
-dependencies = ["polars", "plotly", "pyyaml", "jinja2", "typer", "duckdb"]
+dependencies = [
+  "polars",
+  "plotly",
+  "numpy",
+  "pyyaml",
+  "jinja2",
+  "typer",
+  "duckdb",
+]
 
 [project.optional-dependencies]
 postgres = ["psycopg2-binary"]
