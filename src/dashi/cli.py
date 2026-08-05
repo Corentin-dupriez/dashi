@@ -8,7 +8,6 @@ from .render import render_dashboard
 from .serve import serve as serve_dashboard
 from .structure.initializer import (
     create_dashboard_template,
-    structure_already_present,
     create_structure,
 )
 
@@ -22,10 +21,7 @@ def init() -> None:
     If the structure is already present, it will be skipped.
     After creating the structure, creates the dashboard template, which will be used to generate new dashboards.
     """
-    if not structure_already_present():
-        create_structure()
-    else:
-        print("Structure is already present, skipping creation")
+    create_structure()
 
     create_dashboard_template()
 

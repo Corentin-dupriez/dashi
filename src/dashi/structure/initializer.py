@@ -3,17 +3,6 @@ from pathlib import Path
 DASHI_FOLDERS = ["data_sources", "staging_data", "dashboards", "templates"]
 
 
-def structure_already_present() -> bool:
-    """
-    Checks if any of the DASHI_FOLDERS is alread present in the current project structure
-    Return:
-        A boolean value indicating if any folder from the DASHI_FOLDERS is found in the project structure
-    """
-    if any([Path.exists(Path.cwd() / folder) for folder in DASHI_FOLDERS]):
-        return True
-    return False
-
-
 def create_structure() -> None:
     """
     Creates the wanted folder structure for dashi to work.
@@ -22,7 +11,12 @@ def create_structure() -> None:
     root = Path.cwd()
     for folder in DASHI_FOLDERS:
         new_folder = Path(root / folder)
-        new_folder.mkdir()
+        if not Path.exists(new_folder):
+            new_folder.mkdir()
+            if new_folder == Path(root / "builds") and not Path.exists(
+                Path(root / "builds" / "static" / "style.css")
+            ):
+                create_stylesheet()
 
 
 def create_dashboard_template() -> None:
